@@ -4,8 +4,9 @@ const gameboard = (function () {
         const columns = 3;
         const board = [];
         for(let i = 0; i < columns; i++) {
+            board[i] = [];
             for(let j = 0; j < rows; j++) {
-                board.push("0");
+                board[i].push("0");
             }
         }
         return board;
