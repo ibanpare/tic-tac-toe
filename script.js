@@ -32,18 +32,23 @@ IF 0, 3, 6
   */
 
 // constructor function for players
-function createPlayer (name, symbol) {
-    return { name, symbol };
+function createPlayer () {
+    const getName = prompt("What's the player name?");
+    const getSymbol = prompt("What's the player symbol?");
+    return { getName, getSymbol };
   }
 
 // constructor function for game logic 
+
+/*
 function createGame () {
+    // this logic should go in the createPlayer constructor function
     const player1 = createPlayer (prompt("What's the player 1 name?"),prompt("And what's the player one symbol?"));
     console.log(player1);
 
     const player2 = createPlayer (prompt("What's the player 2 name?"),prompt("And what's the player two symbol?"));
     console.log(player2);
-}
+} 
   /*
 while gameOn = true
   player1 turn - asks for input
