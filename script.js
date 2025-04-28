@@ -35,14 +35,16 @@ IF 0, 3, 6
 function createPlayer (name, symbol) {
     return { name, symbol };
   }
+
+// constructor function for game logic 
+function createGame () {
+    const player1 = createPlayer (prompt("What's the player 1 name?"),prompt("And what's the player one symbol?"));
+    console.log(player1);
+
+    const player2 = createPlayer (prompt("What's the player 2 name?"),prompt("And what's the player two symbol?"));
+    console.log(player2);
+}
   /*
-  OBJECT FOR GAME LOGIC
-
-  asks for player1 name, player1 symbol
-  creates player1
-  asks for player2 name, assigns player2 symbol
-  creates player2
-
 while gameOn = true
   player1 turn - asks for input
   adds input to board (this is a method)
