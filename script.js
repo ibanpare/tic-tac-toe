@@ -14,8 +14,6 @@ const gameboard = (function () {
     return {Gameboard};
   })();
 
-  console.log(gameboard.Gameboard());
-
   // comments for game logic
   /*
 IF 0, 3, 6 
@@ -31,36 +29,44 @@ IF 0, 3, 6
   ELSE IT'S A TIE
   */
 
-// constructor function for players
+// factory function for players
 function createPlayer () {
     const getName = prompt("What's the player name?");
     const getSymbol = prompt("What's the player symbol?");
     return { getName, getSymbol };
   }
 
-// constructor function for game logic 
+// factory function for game logic 
 
-/*
+/* 
+
+how the game works
+one turn each
+in each turn the player picks a position
+the game write she symbol on the board in that position
+the game checks if there's a winner
+IF YES
+  game ends
+IF NO
+  repeat
+
+quindi se gioco dalla console chiamo 
+Game Init per avere la board e i due players
+nextTurn, per avere il prossimo turno dove il giocatore esegue la scelta
+printBoard perché serve
+checkWinner per capire se il gioco continua o meno
+cleanBoard per quando c'è un winner
+
+*/
+
 function createGame () {
-    // this logic should go in the createPlayer constructor function
-    const player1 = createPlayer (prompt("What's the player 1 name?"),prompt("And what's the player one symbol?"));
-    console.log(player1);
-
-    const player2 = createPlayer (prompt("What's the player 2 name?"),prompt("And what's the player two symbol?"));
-    console.log(player2);
-} 
-  /*
-while gameOn = true
-  player1 turn - asks for input
-  adds input to board (this is a method)
-  checks for winner (this is a method)
-    if winner => gameOn = false
-    declares winner (this is a method)
-    Resets board (this is a method)
-  if not player2 turn
-    adds input to board
-  checks for winner
-    if winner => gameOn = false
-    declares winner
-    Resets board
-  */
+        const gameInit = () => {
+            const player1 = createPlayer();
+            const player2 = createPlayer();
+            return {player1, player2};
+        }
+        const displayBoard = () => {
+            console.log(gameboard.Gameboard())
+        };
+        return { gameInit, displayBoard};
+    } 
