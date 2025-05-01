@@ -80,13 +80,14 @@ function createGame () {
             let playerChoiceColumn = parseInt(prompt("What's your column choice? (From 1 left, to 3 right)"));
             console.log(playerChoiceColumn)
             let playerChoiceRow = parseInt(prompt("What's your row choice? (From 1 top, to 3 bottom)"));
-            console.log(playerChoiceColumn)
-            console.log(gameboard.Gameboard()[playerChoiceColumn][playerChoiceRow]);
+            console.log(playerChoiceColumn);
 
-            // secondo me devo fare un metodo in gameboard che aggiorni la board, con splice dovrebbe andare
+            gameboard.setCell(activePlayer,playerChoiceRow,playerChoiceColumn);
+            gameboard.displayBoard();
+
         } 
 
-        return { gameInit, displayBoard, nextTurn};
+        return { gameInit, nextTurn};
     } 
 
 const newGame = createGame()
