@@ -2,7 +2,7 @@ const gameboard = (function () {
     const Gameboard = () => {
         const rows = 3;
         const columns = 3;
-        const board = [];
+        let board = [];
         for(let i = 0; i < columns; i++) {
             board[i] = [];
             for(let j = 0; j < rows; j++) {
@@ -11,7 +11,18 @@ const gameboard = (function () {
         }
         return board;
     }
-    return {Gameboard};
+
+    const board = Gameboard()
+
+    const displayBoard = () => {
+        console.log(board)
+    }
+
+    const setCell = (value, row, column) => {
+        board[row][column] = value;
+    }
+
+    return {board, setCell, displayBoard};
   })();
 
   // comments for game logic
@@ -51,11 +62,8 @@ IF NO
   repeat
 
 quindi se gioco dalla console chiamo 
-Game Init per avere la board e i due players
 nextTurn, per avere il prossimo turno dove il giocatore esegue la scelta
-printBoard perché serve
 checkWinner per capire se il gioco continua o meno
-cleanBoard per quando c'è un winner
 
 */
 
@@ -63,10 +71,22 @@ function createGame () {
         const gameInit = () => {
             const player1 = createPlayer();
             const player2 = createPlayer();
+            cleanBoard;
             return {player1, player2};
         }
-        const displayBoard = () => {
-            console.log(gameboard.Gameboard())
-        };
-        return { gameInit, displayBoard};
+
+        const nextTurn = () => {
+            const activePlayer = "X";
+            let playerChoiceColumn = parseInt(prompt("What's your column choice? (From 1 left, to 3 right)"));
+            console.log(playerChoiceColumn)
+            let playerChoiceRow = parseInt(prompt("What's your row choice? (From 1 top, to 3 bottom)"));
+            console.log(playerChoiceColumn)
+            console.log(gameboard.Gameboard()[playerChoiceColumn][playerChoiceRow]);
+
+            // secondo me devo fare un metodo in gameboard che aggiorni la board, con splice dovrebbe andare
+        } 
+
+        return { gameInit, displayBoard, nextTurn};
     } 
+
+const newGame = createGame()
