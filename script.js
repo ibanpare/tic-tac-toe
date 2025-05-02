@@ -19,6 +19,10 @@ const gameboard = (function () {
     }
 
     const setCell = (value, row, column) => {
+        if (board[row][column] != "") {
+            console.log("Cell busy, pick another one");
+            return "busy cell";
+        }
         board[row][column] = value;
     }
 
@@ -74,6 +78,9 @@ function createGame () {
             cleanBoard;
             return {player1, player2};
         }
+
+        // servirà logica di GetActivePlayer
+        // insieme a switchPLayerTurn, che chiamerò a fine di next turn
 
         const nextTurn = () => {
             const activePlayer = "X";
