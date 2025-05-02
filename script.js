@@ -72,15 +72,19 @@ checkWinner per capire se il gioco continua o meno
 */
 
 function createGame () {
-        const gameInit = () => {
-            const player1 = createPlayer();
-            const player2 = createPlayer();
-            cleanBoard;
-            return {player1, player2};
-        }
+        const player1 = createPlayer();
+        const player2 = createPlayer();
+
+        let activePlayer = player1;
 
         // servirà logica di GetActivePlayer
         // insieme a switchPLayerTurn, che chiamerò a fine di next turn
+        // è buggata questa logica perché non agisce may su activePlayer, ci devo ragionare
+
+        const switchActivePlayer = () => {
+            activePlayer = activePlayer === player1 ? player2 : player1;
+            return activePlayer;
+        }
 
         const nextTurn = () => {
             const activePlayer = "X";
@@ -94,7 +98,7 @@ function createGame () {
 
         } 
 
-        return { gameInit, nextTurn};
+        return {player1, player2, activePlayer, switchActivePlayer, nextTurn};
     } 
 
 const newGame = createGame()
