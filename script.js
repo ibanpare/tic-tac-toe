@@ -75,15 +75,16 @@ function createGame () {
         const player1 = createPlayer();
         const player2 = createPlayer();
 
-        let activePlayer = player1;
+        const players = [player1, player2];
+        
+        let activePlayer = players[0];
 
-        // servirà logica di GetActivePlayer
-        // insieme a switchPLayerTurn, che chiamerò a fine di next turn
-        // è buggata questa logica perché non agisce may su activePlayer, ci devo ragionare
+        const GetActivePlayer = () => {
+            return activePlayer;
+        }
 
         const switchActivePlayer = () => {
-            activePlayer = activePlayer === player1 ? player2 : player1;
-            return activePlayer;
+            activePlayer = activePlayer === players[0] ? players[1] : players[0];
         }
 
         const nextTurn = () => {
@@ -98,7 +99,7 @@ function createGame () {
 
         } 
 
-        return {player1, player2, activePlayer, switchActivePlayer, nextTurn};
+        return {GetActivePlayer, switchActivePlayer, nextTurn};
     } 
 
 const newGame = createGame()
