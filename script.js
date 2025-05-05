@@ -88,15 +88,13 @@ function createGame () {
         }
 
         const nextTurn = () => {
-            const activePlayer = "X";
-            let playerChoiceColumn = parseInt(prompt("What's your column choice? (From 1 left, to 3 right)"));
+            let playerChoiceColumn = parseInt(prompt("What's your column choice? (0 | 1 | 2)"));
             console.log(playerChoiceColumn)
-            let playerChoiceRow = parseInt(prompt("What's your row choice? (From 1 top, to 3 bottom)"));
-            console.log(playerChoiceColumn);
+            let playerChoiceRow = parseInt(prompt("What's your row choice? (From 0 top, to 2 bottom)"));
 
-            gameboard.setCell(activePlayer,playerChoiceRow,playerChoiceColumn);
+            gameboard.setCell(GetActivePlayer().getSymbol,playerChoiceRow,playerChoiceColumn);
             gameboard.displayBoard();
-
+            switchActivePlayer();
         } 
 
         return {GetActivePlayer, switchActivePlayer, nextTurn};
