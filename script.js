@@ -20,7 +20,6 @@ const gameboard = (function () {
 
     const setCell = (value, row, column) => {
         if (board[row][column] != "") {
-            console.log("Cell busy, pick another one");
             return "busy cell";
         }
         board[row][column] = value;
@@ -88,11 +87,18 @@ function createGame () {
         }
 
         const nextTurn = () => {
-            let playerChoiceColumn = parseInt(prompt("What's your column choice? (0 | 1 | 2)"));
-            console.log(playerChoiceColumn)
-            let playerChoiceRow = parseInt(prompt("What's your row choice? (From 0 top, to 2 bottom)"));
+            let keepGoing = true;
 
-            gameboard.setCell(GetActivePlayer().getSymbol,playerChoiceRow,playerChoiceColumn);
+            while (keepGoing) {
+                let playerChoiceColumn = parseInt(prompt("What's your column choice? (0 | 1 | 2)"));
+                let playerChoiceRow = parseInt(prompt("What's your row choice? (From 0 top, to 2 bottom)"));
+    
+                if(gameboard.setCell(GetActivePlayer().getSymbol,playerChoiceRow,playerChoiceColumn) == "busy cell") {
+                    console.log("You can't pick that spot, choose another one.");
+                } else {
+                    keepGoing = false;
+                }
+            }
             gameboard.displayBoard();
             switchActivePlayer();
         } 
