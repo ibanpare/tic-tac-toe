@@ -28,21 +28,6 @@ const gameboard = (function () {
     return {board, setCell, displayBoard};
   })();
 
-  // comments for game logic
-  /*
-IF 0, 3, 6 
-  OR 0, 1, 2
-  OR 3, 4, 5
-  OR 6, 7, 8
-  OR 1, 4, 7
-  OR 2, 5, 8
-  OR 0, 4, 8
-  OR 2, 4, 6
-  ARE EQUAL
-  THEN THE PLAYER WHOSE SIGN IS THERE WINS
-  ELSE IT'S A TIE
-  */
-
 // factory function for players
 function createPlayer () {
     const getName = prompt("What's the player name?");
@@ -86,6 +71,39 @@ function createGame () {
             activePlayer = activePlayer === players[0] ? players[1] : players[0];
         }
 
+        const checkWinner = () => {
+          let flatBoard = gameboard.board.flat();
+          console.log(flatBoard);
+          if (
+            ((flatBoard[0] == flatBoard[3]) == flatBoard[6] &&
+              flatBoard[0] != "") ||
+            ((flatBoard[0] == flatBoard[1]) == flatBoard[2] &&
+              flatBoard[0] != "") ||
+            ((flatBoard[3] == flatBoard[4]) == flatBoard[5] &&
+              flatBoard[3] != "") ||
+            ((flatBoard[6] == flatBoard[7]) == flatBoard[8] &&
+              flatBoard[6] != "") ||
+            ((flatBoard[1] == flatBoard[4]) == flatBoard[7] &&
+              flatBoard[1] != "") ||
+            ((flatBoard[2] == flatBoard[5]) == flatBoard[8] &&
+              flatBoard[2] != "") ||
+            ((flatBoard[0] == flatBoard[4]) == flatBoard[8] &&
+              flatBoard[0] != "") ||
+            ((flatBoard[2] == flatBoard[4]) == flatBoard[6] &&
+              flatBoard[2] != "")
+          ) {
+            console.log("we have a winner");
+
+///penserei meglio all'algoritmo perché è un po' un pippone di lunghezza qua, forse con filter? map? 
+// inotlre ora è buggato perché il check != "" non è sufficiente
+
+            /*
+  THEN THE PLAYER WHOSE SIGN IS THERE WINS
+  ELSE IT'S A TIE
+  */
+          }
+        };
+
         const nextTurn = () => {
             let keepGoing = true;
 
@@ -100,6 +118,7 @@ function createGame () {
                 }
             }
             gameboard.displayBoard();
+            checkWinner();
             switchActivePlayer();
         } 
 
