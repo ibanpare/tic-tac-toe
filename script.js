@@ -71,37 +71,49 @@ function createGame () {
             activePlayer = activePlayer === players[0] ? players[1] : players[0];
         }
 
-        const checkWinner = () => {
-          let flatBoard = gameboard.board.flat();
-          console.log(flatBoard);
-          if (
-            ((flatBoard[0] == flatBoard[3]) == flatBoard[6] &&
-              flatBoard[0] != "") ||
-            ((flatBoard[0] == flatBoard[1]) == flatBoard[2] &&
-              flatBoard[0] != "") ||
-            ((flatBoard[3] == flatBoard[4]) == flatBoard[5] &&
-              flatBoard[3] != "") ||
-            ((flatBoard[6] == flatBoard[7]) == flatBoard[8] &&
-              flatBoard[6] != "") ||
-            ((flatBoard[1] == flatBoard[4]) == flatBoard[7] &&
-              flatBoard[1] != "") ||
-            ((flatBoard[2] == flatBoard[5]) == flatBoard[8] &&
-              flatBoard[2] != "") ||
-            ((flatBoard[0] == flatBoard[4]) == flatBoard[8] &&
-              flatBoard[0] != "") ||
-            ((flatBoard[2] == flatBoard[4]) == flatBoard[6] &&
-              flatBoard[2] != "")
-          ) {
-            console.log("we have a winner");
-
-///penserei meglio all'algoritmo perché è un po' un pippone di lunghezza qua, forse con filter? map? 
-// inotlre ora è buggato perché il check != "" non è sufficiente
+        // io direi di fare una funziona che genera board vincenti, prendendo in input simboli dei player e board vuota. poi con check winner fai loop tra le vincenti e se ne trovi una dichiari il vincitore corretto
+// aggiornamento, c'ero quasi mi sa, ho notato su reddit che fanno le board vincenti, ma le ottimizzano molto convertendo in binario, e lo fanno per ogni player, quindi sarebbero due chiamate alla funzione + da una parte c'è un'array con le combinazioni vincenti
 
             /*
   THEN THE PLAYER WHOSE SIGN IS THERE WINS
   ELSE IT'S A TIE
   */
-          }
+
+        const isWinner = (player) => {
+          let flatBoard = gameboard.board.flat();
+          console.log(flatBoard);
+
+          const symbol = player.getSymbol;
+
+          let mappedBoard = flatBoard.map((num) => {
+            //console.log(`num is ${num}`);
+            //console.log(`symbol is ${symbol}`);
+            if (num == symbol) return 1;
+            else return 0;
+          });
+
+          console.log(mappedBoard);
+          mappedBoard = mappedBoard.join("");
+          console.log(mappedBoard);
+
+          const winningCombinations = [
+            [111000000], // top row
+            [000111000], // middle row
+            [000000111], // bottom row
+            [100100100], // left column
+            [010010010], // middle column
+            [001001001], // right column
+            [100010001], // diagonal top-left to bottom-right
+            [001010100], // diagonal top-right to bottom-left
+          ];
+
+          winningCombinations.forEach((element) => {
+            console.log(element);
+            console.log(mappedBoard)
+            if(element == mappedBoard) {
+                console.log("we have a winner");
+            }
+          })
         };
 
         const nextTurn = () => {
@@ -118,11 +130,12 @@ function createGame () {
                 }
             }
             gameboard.displayBoard();
-            checkWinner();
+            //isWinner(players[0]);
+            // magari qui da mettere un if che dice chi vince? o gestirla con active player
             switchActivePlayer();
         } 
 
-        return {GetActivePlayer, switchActivePlayer, nextTurn};
+        return {players, GetActivePlayer, switchActivePlayer, nextTurn, isWinner};
     } 
 
 const newGame = createGame()
