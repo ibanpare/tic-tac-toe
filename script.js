@@ -15,7 +15,7 @@ const gameboard = (function () {
     const board = Gameboard()
 
     const displayBoard = () => {
-        console.log(board)
+        console.table(board)
     }
 
     const setCell = (value, row, column) => {
@@ -81,20 +81,15 @@ function createGame () {
 
         const isWinner = (player) => {
           let flatBoard = gameboard.board.flat();
-          console.log(flatBoard);
 
           const symbol = player.getSymbol;
 
           let mappedBoard = flatBoard.map((num) => {
-            //console.log(`num is ${num}`);
-            //console.log(`symbol is ${symbol}`);
             if (num == symbol) return 1;
             else return 0;
           });
 
-          console.log(mappedBoard);
           mappedBoard = mappedBoard.join("");
-          console.log(mappedBoard);
 
           const winningCombinations = [
             [111000000], // top row
@@ -108,8 +103,6 @@ function createGame () {
           ];
 
           winningCombinations.forEach((element) => {
-            console.log(element);
-            console.log(mappedBoard)
             if(element == mappedBoard) {
                 console.log("we have a winner");
             }
@@ -130,7 +123,7 @@ function createGame () {
                 }
             }
             gameboard.displayBoard();
-            //isWinner(players[0]);
+            isWinner(activePlayer);
             // magari qui da mettere un if che dice chi vince? o gestirla con active player
             switchActivePlayer();
         } 
