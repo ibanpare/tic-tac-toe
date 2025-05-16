@@ -71,14 +71,6 @@ function createGame () {
             activePlayer = activePlayer === players[0] ? players[1] : players[0];
         }
 
-        // io direi di fare una funziona che genera board vincenti, prendendo in input simboli dei player e board vuota. poi con check winner fai loop tra le vincenti e se ne trovi una dichiari il vincitore corretto
-// aggiornamento, c'ero quasi mi sa, ho notato su reddit che fanno le board vincenti, ma le ottimizzano molto convertendo in binario, e lo fanno per ogni player, quindi sarebbero due chiamate alla funzione + da una parte c'è un'array con le combinazioni vincenti
-
-            /*
-  THEN THE PLAYER WHOSE SIGN IS THERE WINS
-  ELSE IT'S A TIE
-  */
-
         const isWinner = (player) => {
           let flatBoard = gameboard.board.flat();
 
@@ -103,10 +95,10 @@ function createGame () {
           ];
 
           winningCombinations.forEach((element) => {
-            if(element == mappedBoard) {
-                console.log("we have a winner");
+            if (element == mappedBoard) {
+              console.log(`Game Over!\nThe winner is ${player.getName}`);
             }
-          })
+          });
         };
 
         const nextTurn = () => {
@@ -124,7 +116,6 @@ function createGame () {
             }
             gameboard.displayBoard();
             isWinner(activePlayer);
-            // magari qui da mettere un if che dice chi vince? o gestirla con active player
             switchActivePlayer();
         } 
 
@@ -132,3 +123,5 @@ function createGame () {
     } 
 
 const newGame = createGame()
+// da qualche parte il while che continua a chiedere next turn? O forse non serve per quando ci sarà UI
+// di certo mi serve il check game over
