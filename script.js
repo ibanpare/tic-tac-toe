@@ -165,6 +165,7 @@ const displayController = (function () {
     flatBoard.forEach((element) => {
       const div = document.createElement("div");
       div.textContent = element;
+      div.classList.add("cell")
       container.appendChild(div);
     });
   };
