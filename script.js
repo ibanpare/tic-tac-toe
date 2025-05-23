@@ -84,14 +84,14 @@ function createGame() {
     mappedBoard = mappedBoard.join("");
 
     const winningCombinations = [
-      [111000000], // top row
-      [000111000], // middle row
-      [000000111], // bottom row
-      [100100100], // left column
-      [010010010], // middle column
-      [001001001], // right column
-      [100010001], // diagonal top-left to bottom-right
-      [001010100], // diagonal top-right to bottom-left
+      ["111000000"], // top row
+      ["000111000"], // middle row
+      ["000000111"], // bottom row
+      ["100100100"], // left column
+      ["010010010"], // middle column
+      ["001001001"], // right column
+      ["100010001"], // diagonal top-left to bottom-right
+      ["001010100"], // diagonal top-right to bottom-left
     ];
 
     winningCombinations.forEach((element) => {
@@ -124,8 +124,8 @@ function createGame() {
         keepGoing = false;
       }
     }
-    displayController.cleanBoard()
-    displayController.displayBoard()
+    displayController.cleanBoard();
+    displayController.displayBoard();
     isWinner(activePlayer);
     switchActivePlayer();
   };
@@ -166,18 +166,18 @@ const displayController = (function () {
     flatBoard.forEach((element) => {
       const div = document.createElement("div");
       div.textContent = element;
-      div.classList.add("cell")
+      div.classList.add("cell");
       container.appendChild(div);
     });
   };
 
   const cleanBoard = () => {
     while (container.firstChild) {
-    container.removeChild(container.lastChild);
-  }
-  }
+      container.removeChild(container.lastChild);
+    }
+  };
 
-  return {displayBoard, cleanBoard};
+  return { displayBoard, cleanBoard };
 })();
 
-displayController.displayBoard()
+displayController.displayBoard();
