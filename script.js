@@ -124,7 +124,8 @@ function createGame() {
         keepGoing = false;
       }
     }
-    gameboard.displayBoard();
+    displayController.cleanBoard()
+    displayController.displayBoard()
     isWinner(activePlayer);
     switchActivePlayer();
   };
@@ -178,3 +179,5 @@ const displayController = (function () {
 
   return {displayBoard, cleanBoard};
 })();
+
+displayController.displayBoard()
