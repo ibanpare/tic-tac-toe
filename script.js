@@ -134,20 +134,10 @@ function createGame() {
 }
 
 const newGame = createGame();
-// da qualche parte il while che continua a chiedere next turn? O forse non serve per quando ci sarà UI
 // di certo mi serve il check game over, ma quasi quasi posticipo pure quello a quando c'è UI
 
-/* Once you have a working console game, create an object that will handle the display/DOM logic. Write a function that will render the contents of the gameboard array to the webpage (for now, you can always just fill the gameboard array with "X"s and "O"s just to see what’s going on).
+/* 
 
-
-quindi praticamente quest'oggetto fa:
-displayBoard
-e viene chiamato immediatamente come IIFE
-
-displayboard
-loop through flatboard
-crea un div con textcontent il valore e con classe specifica così da stilare bene poi
-stilero con flexbox o grid mandando a capo con questo modo
 
 SetCell 
 da capire se va nell'oggetto sopra o no, forse no
@@ -168,6 +158,13 @@ const displayController = (function () {
       div.textContent = element;
       div.classList.add("cell");
       container.appendChild(div);
+
+      //CAPIRE COME PASSARE SIMBOLO, O SE ASTRARRElet symbol = newGame.GetActivePlayer().getSymbol;
+
+      div.addEventListener("click", (e, symbol) => {
+        console.log(e);
+        console.log(symbol);
+      });
     });
   };
 
@@ -180,4 +177,4 @@ const displayController = (function () {
   return { displayBoard, cleanBoard };
 })();
 
-displayController.displayBoard();
+displayController.displayBoard(newGame);
