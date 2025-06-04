@@ -148,7 +148,7 @@ mette marker apposito
 chiama setcell per aggiornare anche l'array
 */
 
-const displayController = (function () {
+const displayController = (function() {
   const container = document.querySelector(".container");
 
   const displayBoard = () => {
@@ -159,11 +159,13 @@ const displayController = (function () {
       div.classList.add("cell");
       container.appendChild(div);
 
-      //CAPIRE COME PASSARE SIMBOLO, O SE ASTRARRElet symbol = newGame.GetActivePlayer().getSymbol;
+      //ora il simbolo viene scritto al click, bisogna legare il tutto alla logica di nextTurn
 
-      div.addEventListener("click", (e, symbol) => {
-        console.log(e);
+      div.addEventListener("click", (e) => {
+        let symbol = newGame.GetActivePlayer().getSymbol;
         console.log(symbol);
+        console.log(e.target);
+        e.target.textContent = symbol;
       });
     });
   };
@@ -177,4 +179,4 @@ const displayController = (function () {
   return { displayBoard, cleanBoard };
 })();
 
-displayController.displayBoard(newGame);
+displayController.displayBoard();
