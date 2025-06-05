@@ -133,7 +133,6 @@ function createGame() {
   return { players, GetActivePlayer, switchActivePlayer, nextTurn, isWinner };
 }
 
-const newGame = createGame();
 // di certo mi serve il check game over, ma quasi quasi posticipo pure quello a quando c'è UI
 
 /* 
@@ -153,10 +152,13 @@ const displayController = (function() {
 
   const displayBoard = () => {
     let flatBoard = gameboard.board.flat();
+    let position = 0;
     flatBoard.forEach((element) => {
       const div = document.createElement("div");
       div.textContent = element;
       div.classList.add("cell");
+      position += 1;
+      div.setAttribute("id", `${position}`);
       container.appendChild(div);
 
       //ora il simbolo viene scritto al click, bisogna legare il tutto alla logica di nextTurn
@@ -166,6 +168,8 @@ const displayController = (function() {
         console.log(symbol);
         console.log(e.target);
         e.target.textContent = symbol;
+        console.log(e.target.id)
+        //newGame.nextTurn();
       });
     });
   };
@@ -179,4 +183,5 @@ const displayController = (function() {
   return { displayBoard, cleanBoard };
 })();
 
+const newGame = createGame();
 displayController.displayBoard();
