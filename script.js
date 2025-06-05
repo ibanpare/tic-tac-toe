@@ -101,16 +101,52 @@ function createGame() {
     });
   };
 
-  const nextTurn = () => {
+  const nextTurn = (position) => {
     let keepGoing = true;
 
+    let playerChoiceColumn = "";
+    let playerChoiceRow = "";
+
+    switch (position) {
+      case 1:
+        playerChoiceColumn = 0;
+        playerChoiceRow = 0;
+        break
+      case 2:
+        playerChoiceColumn = 1;
+        playerChoiceRow = 0;
+        break
+      case 3:
+        playerChoiceColumn = 2;
+        playerChoiceRow = 0;
+        break
+      case 4:
+        playerChoiceColumn = 0;
+        playerChoiceRow = 1;
+        break
+      case 5:
+        playerChoiceColumn = 1;
+        playerChoiceRow = 1;
+        break
+      case 6:
+        playerChoiceColumn = 2;
+        playerChoiceRow = 1;
+        break
+      case 7:
+        playerChoiceColumn = 0;
+        playerChoiceRow = 2;
+        break
+      case 8:
+        playerChoiceColumn = 1;
+        playerChoiceRow = 2;
+        break
+      case 9:
+        playerChoiceColumn = 2;
+        playerChoiceRow = 2;
+        break
+    }
+
     while (keepGoing) {
-      let playerChoiceColumn = parseInt(
-        prompt("What's your column choice? (0 | 1 | 2)")
-      );
-      let playerChoiceRow = parseInt(
-        prompt("What's your row choice? (From 0 top, to 2 bottom)")
-      );
 
       if (
         gameboard.setCell(
@@ -135,19 +171,7 @@ function createGame() {
 
 // di certo mi serve il check game over, ma quasi quasi posticipo pure quello a quando c'è UI
 
-/* 
-
-
-SetCell 
-da capire se va nell'oggetto sopra o no, forse no
-è un eventListener che al click sul div casella 
-controlla se la cella è vuota
-capisce chi è active player (quindi è dentro la game function)
-mette marker apposito
-chiama setcell per aggiornare anche l'array
-*/
-
-const displayController = (function() {
+const displayController = (function () {
   const container = document.querySelector(".container");
 
   const displayBoard = () => {
@@ -161,15 +185,11 @@ const displayController = (function() {
       div.setAttribute("id", `${position}`);
       container.appendChild(div);
 
-      //ora il simbolo viene scritto al click, bisogna legare il tutto alla logica di nextTurn
-
       div.addEventListener("click", (e) => {
         let symbol = newGame.GetActivePlayer().getSymbol;
-        console.log(symbol);
-        console.log(e.target);
         e.target.textContent = symbol;
-        console.log(e.target.id)
-        //newGame.nextTurn();
+        let position = parseInt(e.target.id)
+        newGame.nextTurn(position);
       });
     });
   };
