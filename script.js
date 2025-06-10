@@ -55,6 +55,11 @@ checkWinner per capire se il gioco continua o meno
 
 */
 
+/* TO DO
+- bisogna gestire la pulizia della board dopo il game over, con tipo un "do you want to play again"
+- bisogna gestire il playagain con altri players. Ma potrei dire di refreshare la pagina 
+
+*/
 function createGame() {
   const player1 = createPlayer();
   const player2 = createPlayer();
@@ -97,8 +102,18 @@ function createGame() {
     winningCombinations.forEach((element) => {
       if (element == mappedBoard) {
         console.log(`Game Over!\nThe winner is ${player.getName}`);
+        resetBoard();
+        displayController.cleanBoard();
       }
     });
+  };
+
+    const resetBoard = () => {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        gameboard.board[i][j] = "";
+      }
+    }
   };
 
   const nextTurn = (position) => {
@@ -111,43 +126,42 @@ function createGame() {
       case 1:
         playerChoiceColumn = 0;
         playerChoiceRow = 0;
-        break
+        break;
       case 2:
         playerChoiceColumn = 1;
         playerChoiceRow = 0;
-        break
+        break;
       case 3:
         playerChoiceColumn = 2;
         playerChoiceRow = 0;
-        break
+        break;
       case 4:
         playerChoiceColumn = 0;
         playerChoiceRow = 1;
-        break
+        break;
       case 5:
         playerChoiceColumn = 1;
         playerChoiceRow = 1;
-        break
+        break;
       case 6:
         playerChoiceColumn = 2;
         playerChoiceRow = 1;
-        break
+        break;
       case 7:
         playerChoiceColumn = 0;
         playerChoiceRow = 2;
-        break
+        break;
       case 8:
         playerChoiceColumn = 1;
         playerChoiceRow = 2;
-        break
+        break;
       case 9:
         playerChoiceColumn = 2;
         playerChoiceRow = 2;
-        break
+        break;
     }
 
     while (keepGoing) {
-
       if (
         gameboard.setCell(
           GetActivePlayer().getSymbol,
@@ -188,7 +202,7 @@ const displayController = (function () {
       div.addEventListener("click", (e) => {
         let symbol = newGame.GetActivePlayer().getSymbol;
         e.target.textContent = symbol;
-        let position = parseInt(e.target.id)
+        let position = parseInt(e.target.id);
         newGame.nextTurn(position);
       });
     });
