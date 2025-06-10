@@ -19,9 +19,6 @@ const gameboard = (function () {
   };
 
   const setCell = (value, row, column) => {
-    if (board[row][column] != "") {
-      return "busy cell";
-    }
     board[row][column] = value;
   };
 
@@ -37,26 +34,8 @@ function createPlayer() {
 
 // factory function for game logic
 
-/* 
-
-how the game works
-one turn each
-in each turn the player picks a position
-the game write she symbol on the board in that position
-the game checks if there's a winner
-IF YES
-  game ends
-IF NO
-  repeat
-
-quindi se gioco dalla console chiamo 
-nextTurn, per avere il prossimo turno dove il giocatore esegue la scelta
-checkWinner per capire se il gioco continua o meno
-
-*/
-
 /* TO DO
-- bisogna gestire la pulizia della board dopo il game over, con tipo un "do you want to play again"
+- bisogna gestire il "do you want to play again"
 - bisogna gestire il playagain con altri players. Ma potrei dire di refreshare la pagina 
 
 */
@@ -99,6 +78,8 @@ function createGame() {
       ["001010100"], // diagonal top-right to bottom-left
     ];
 
+    //TO DO bug sotto, perché controlla esattamente l'uguaglianza, bisogna farlo diversamente
+
     winningCombinations.forEach((element) => {
       if (element == mappedBoard) {
         console.log(`Game Over!\nThe winner is ${player.getName}`);
@@ -108,7 +89,7 @@ function createGame() {
     });
   };
 
-    const resetBoard = () => {
+  const resetBoard = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         gameboard.board[i][j] = "";
@@ -117,8 +98,6 @@ function createGame() {
   };
 
   const nextTurn = (position) => {
-    let keepGoing = true;
-
     let playerChoiceColumn = "";
     let playerChoiceRow = "";
 
@@ -161,19 +140,11 @@ function createGame() {
         break;
     }
 
-    while (keepGoing) {
-      if (
-        gameboard.setCell(
-          GetActivePlayer().getSymbol,
-          playerChoiceRow,
-          playerChoiceColumn
-        ) == "busy cell"
-      ) {
-        console.log("You can't pick that spot, choose another one.");
-      } else {
-        keepGoing = false;
-      }
-    }
+    gameboard.setCell(
+      GetActivePlayer().getSymbol,
+      playerChoiceRow,
+      playerChoiceColumn
+    )
     displayController.cleanBoard();
     displayController.displayBoard();
     isWinner(activePlayer);
@@ -200,6 +171,9 @@ const displayController = (function () {
       container.appendChild(div);
 
       div.addEventListener("click", (e) => {
+        if(e.target.textContent != "") {
+          return;
+        }
         let symbol = newGame.GetActivePlayer().getSymbol;
         e.target.textContent = symbol;
         let position = parseInt(e.target.id);
