@@ -83,7 +83,7 @@ function createGame() {
         combination.every((index) => mappedBoard[index] === 1)
       )
     ) {
-      console.log(`Game Over!\nThe winner is ${player.getName}`);
+      displayController.displayWinner(player.getName);
       resetBoard();
       displayController.cleanBoard();
     }
@@ -158,6 +158,7 @@ function createGame() {
 
 const displayController = (function () {
   const container = document.querySelector(".container");
+  const resultDiv = document.querySelector(".result");
 
   const displayBoard = () => {
     let flatBoard = gameboard.board.flat();
@@ -188,7 +189,14 @@ const displayController = (function () {
     }
   };
 
-  return { displayBoard, cleanBoard };
+  const displayWinner = (playerName) => {
+      const div = document.createElement("div");
+      div.classList.add("result");
+      div.textContent = `Game Over!\nThe winner is ${playerName}`;
+      resultDiv.appendChild(div);
+  }
+
+  return { displayBoard, cleanBoard, displayWinner};
 })();
 
 const newGame = createGame();
