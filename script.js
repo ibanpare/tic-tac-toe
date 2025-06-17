@@ -65,28 +65,28 @@ function createGame() {
       else return 0;
     });
 
-    mappedBoard = mappedBoard.join("");
-
     const winningCombinations = [
-      ["111000000"], // top row
-      ["000111000"], // middle row
-      ["000000111"], // bottom row
-      ["100100100"], // left column
-      ["010010010"], // middle column
-      ["001001001"], // right column
-      ["100010001"], // diagonal top-left to bottom-right
-      ["001010100"], // diagonal top-right to bottom-left
+      [0, 1, 2], // top row
+      [3, 4, 5], // middle row
+      [6, 7, 8], // bottom row
+      [0, 3, 6], // left col
+      [1, 4, 7], // middle col
+      [2, 5, 8], // right col
+      [0, 4, 8], // diag TL-BR
+      [2, 4, 6], // diag TR-BL
     ];
 
-    //TO DO bug sotto, perché controlla esattamente l'uguaglianza, bisogna farlo diversamente
+    //checks flattened board for matching with winning combinations indexes
 
-    winningCombinations.forEach((element) => {
-      if (element == mappedBoard) {
-        console.log(`Game Over!\nThe winner is ${player.getName}`);
-        resetBoard();
-        displayController.cleanBoard();
-      }
-    });
+    if (
+      winningCombinations.some((combination) =>
+        combination.every((index) => mappedBoard[index] === 1)
+      )
+    ) {
+      console.log(`Game Over!\nThe winner is ${player.getName}`);
+      resetBoard();
+      displayController.cleanBoard();
+    }
   };
 
   const resetBoard = () => {
@@ -144,7 +144,7 @@ function createGame() {
       GetActivePlayer().getSymbol,
       playerChoiceRow,
       playerChoiceColumn
-    )
+    );
     displayController.cleanBoard();
     displayController.displayBoard();
     isWinner(activePlayer);
@@ -171,7 +171,7 @@ const displayController = (function () {
       container.appendChild(div);
 
       div.addEventListener("click", (e) => {
-        if(e.target.textContent != "") {
+        if (e.target.textContent != "") {
           return;
         }
         let symbol = newGame.GetActivePlayer().getSymbol;
