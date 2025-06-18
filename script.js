@@ -33,15 +33,10 @@ function createPlayer() {
 }
 
 // factory function for game logic
-
-/* TO DO
-- bisogna gestire il "do you want to play again"
-- bisogna gestire il playagain con altri players. Ma potrei dire di refreshare la pagina 
-
-*/
 function createGame() {
   const player1 = createPlayer();
   const player2 = createPlayer();
+  displayController.displayBoard();
 
   const players = [player1, player2];
 
@@ -154,8 +149,6 @@ function createGame() {
   return { players, GetActivePlayer, switchActivePlayer, nextTurn, isWinner };
 }
 
-// di certo mi serve il check game over, ma quasi quasi posticipo pure quello a quando c'è UI
-
 const displayController = (function () {
   const container = document.querySelector(".container");
   const resultDiv = document.querySelector(".result");
@@ -199,5 +192,20 @@ const displayController = (function () {
   return { displayBoard, cleanBoard, displayWinner};
 })();
 
-const newGame = createGame();
-displayController.displayBoard();
+const newGameButton = document.querySelector("button.new-game");
+newGameButton.addEventListener("click", () => { 
+  return newGame = createGame()
+})
+
+/*
+TO DO
+
+Clean up the interface to allow players to put in their names, include a button to start/restart the game and add a display element that shows the results upon game end!
+
+check game over c'è già?
+
+
+/* TO DO
+- bisogna gestire il "do you want to play again"
+- bisogna gestire il playagain con altri players. 
+*/
