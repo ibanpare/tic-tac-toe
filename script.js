@@ -194,7 +194,9 @@ const displayController = (function () {
 
 const newGameButton = document.querySelector("button.new-game");
 newGameButton.addEventListener("click", () => { 
-  return newGame = createGame()
+  const resultDiv = document.querySelector(".result");
+  if(resultDiv.firstChild) resultDiv.removeChild(resultDiv.firstChild);
+  return newGame = createGame();
 })
 
 /*
