@@ -25,20 +25,15 @@ const gameboard = (function () {
   return { board, setCell, displayBoard };
 })();
 
-// factory function for players OLD 
-/*
-function createPlayer() {
-  const getName = prompt("What's the player name?");
-  const getSymbol = prompt("What's the player symbol?");
-  return { getName, getSymbol };
-}
-*/
+// factory function for players
 
 function createPlayer(player) {
   const player_name = document.querySelector(`#${player}_name`)
   const player_symbol = document.querySelector(`#${player}_symbol`)
   const getName = player_name.value;
   const getSymbol = player_symbol.value;
+  player_name.value = "";
+  player_symbol.value = "";
   return { getName, getSymbol };
 }
 
@@ -212,12 +207,7 @@ newGameButton.addEventListener("click", () => {
 /*
 TO DO
 
-Clean up the interface to allow players to put in their names, include a button to start/restart the game and add a display element that shows the results upon game end!
+Empty form when game starts
+CSS
 
-check game over c'è già?
-
-
-/* TO DO
-- bisogna gestire il "do you want to play again"
-- bisogna gestire il playagain con altri players. 
 */
