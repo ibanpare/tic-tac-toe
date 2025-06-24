@@ -9,6 +9,18 @@
 </head>
 <body>
     <div class="controls">
+        <form action="" class="player-form">
+            <section>Player 1</section>
+            <label for="player1_name">*Player 1 Name</label>
+            <input type="text" name="player1_name" id="player1_name" placeholder="Gina" minlength = "2" maxlength = "40" required>
+            <label for="player1_symbol">*Player 1 Symbol</label>
+            <input type="text" name="player1_symbol" id="player1_symbol" placeholder="X" minlength = "1" maxlength = "1" required>
+            <section>Player 2</section>
+            <label for="player2_name">*Player 2 Name</label>
+            <input type="text" name="player2_name" id="player2_name" placeholder="John" minlength = "2" maxlength = "40" required>
+            <label for="player2_symbol">*Player 2 Symbol</label>
+            <input type="text" name="player2_symbol" id="player2_symbol" placeholder="O" minlength = "1" maxlength = "1" required>
+        </form>
         <button class="new-game">Start New Game</button>
     </div>
     <div class="result"></div>
