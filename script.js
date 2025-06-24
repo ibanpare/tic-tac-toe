@@ -203,11 +203,3 @@ newGameButton.addEventListener("click", () => {
   if(resultDiv.firstChild) resultDiv.removeChild(resultDiv.firstChild);
   return newGame = createGame();
 })
-
-/*
-TO DO
-
-Empty form when game starts
-CSS
-
-*/
