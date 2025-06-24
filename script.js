@@ -25,17 +25,27 @@ const gameboard = (function () {
   return { board, setCell, displayBoard };
 })();
 
-// factory function for players
+// factory function for players OLD 
+/*
 function createPlayer() {
   const getName = prompt("What's the player name?");
   const getSymbol = prompt("What's the player symbol?");
   return { getName, getSymbol };
 }
+*/
+
+function createPlayer(player) {
+  const player_name = document.querySelector(`#${player}_name`)
+  const player_symbol = document.querySelector(`#${player}_symbol`)
+  const getName = player_name.value;
+  const getSymbol = player_symbol.value;
+  return { getName, getSymbol };
+}
 
 // factory function for game logic
 function createGame() {
-  const player1 = createPlayer();
-  const player2 = createPlayer();
+  const player1 = createPlayer("player1");
+  const player2 = createPlayer("player2");
   displayController.displayBoard();
 
   const players = [player1, player2];
